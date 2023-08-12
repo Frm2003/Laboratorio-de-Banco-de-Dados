@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Exemplo</title>
+</head>
+
+<body>
+	<div align="center">
+		<table border="1">
+			<thead>
+				<tr>
+					<th><b>ID</b></th>
+					<th><b>Nome</b></th>
+					<th><b>Data Nasc.</b></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>a</td>
+					<td>a</td>
+					<td>aa/aa/aaaa</td>
+				</tr>
+				<tr>
+					<td>b</td>
+					<td>b</td>
+					<td>bb/bb/bbbb</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	
+	<div align="center">
+		<table>
+			<tr>
+				<td>
+					<input type="number" placeholder="ID">
+				</td>
+			</tr>
+		</table>
+	</div>
+	
+</body>
+
+</html>

@@ -1,0 +1,50 @@
+@charset "ISO-8859-1";
+*{
+	margin: 0; 
+	padding: 0;
+	box-sizing: border-box;
+	border-spacing: 0;
+    font-family: 'Share Tech', sans-serif;
+	outline: none;
+}
+/* ESPECIFICOS */
+form{
+	padding: 4.5em;
+}
+/* ESTILOS PRONTOS */
+.alinhamento{
+	align-items: center;
+	display: flex;
+	justify-content: center;
+}
+.labelTitulo{
+	font-size: 40px;
+}
+.btSimples{
+	font-size: 40px;
+	padding: 0.5em;
+	margin: 0em 0.5em;
+	width: 33.3%;
+}
+.caixaDeTexto{
+	display: block;
+	font-size: 35px;
+	padding: 1.5em 2.5em;
+	border: 2px solid black;
+	width: 100%;
+}
+.espacoMargin{
+	margin: 1.5em 0em;
+}
+@media screen and (min-width: 1280px){
+	.labelTitulo{
+		font-size: 20px;
+	}
+	.btSimples{
+		font-size: 25px;
+	}
+	.caixaDeTexto{
+		font-size: 20px;
+	}
+	
+}

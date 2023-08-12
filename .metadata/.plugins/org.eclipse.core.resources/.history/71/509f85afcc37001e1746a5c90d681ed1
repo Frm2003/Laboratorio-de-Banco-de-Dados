@@ -1,0 +1,7 @@
+package model;
+
+public class Disciplina {
+	private int cod;
+	private String nome;
+	private Professor professor;
+}

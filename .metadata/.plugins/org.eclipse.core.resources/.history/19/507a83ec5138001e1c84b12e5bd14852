@@ -1,0 +1,12 @@
+package persistence;
+
+import java.sql.SQLException;
+import java.util.List;
+
+public interface interfaceDao<T> {
+	public void inserirEditora(T e) throws SQLException;
+	public void atualizarEditora(T e) throws SQLException;
+	public void excluirEditora(T cod) throws SQLException;
+	public T buscaEditora(T e) throws SQLException;
+	public List<T> buscaAllEditora() throws SQLException;
+}

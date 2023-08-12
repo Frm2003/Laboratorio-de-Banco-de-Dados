@@ -1,0 +1,12 @@
+package persistence;
+
+import java.sql.SQLException;
+import java.util.List;
+
+public interface interfaceDao<T> {
+	public void inserir(T e) throws SQLException;
+	public void atualizar(T e) throws SQLException;
+	public void excluir(T cod) throws SQLException;
+	public T busca(T e) throws SQLException;
+	public List<T> buscaAll() throws SQLException;
+}

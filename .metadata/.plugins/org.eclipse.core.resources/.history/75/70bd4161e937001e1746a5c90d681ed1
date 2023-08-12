@@ -1,0 +1,27 @@
+@charset "ISO-8859-1";
+*{
+	margin: 0; 
+	padding: 0;
+	box-sizing: border-box;
+	border-spacing: 0;
+    font-family: 'Share Tech', sans-serif;
+	outline: none;
+}
+@media screen and (max-width: 1200px)
+@media screen and (min-width: 1280px){
+	/* ESPECIFICOS */
+	form{
+		padding: 0.75em;
+	}
+	/* ESTILOS PRONTOS */
+	.labelTitulo{
+		font-size: 22px;
+	}
+	.btSimples{
+		font-size: 19px;
+	}
+	.caixaDeTexto{
+		font-size: 17px;
+	}
+	
+}

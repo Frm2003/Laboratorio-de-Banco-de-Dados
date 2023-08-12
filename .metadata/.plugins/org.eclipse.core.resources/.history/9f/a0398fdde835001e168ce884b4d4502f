@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Exemplo</title>
+</head>
+
+<body>
+	<div>
+		<table border="1">
+			<thead>
+				<tr>
+					<th><b>ID</b></th>
+					<th><b>Nome</b></th>
+					<th><b>Data Nasc.</b></th>
+				</tr>
+			</thead>
+			<tbody>
+				<td></td>
+			</tbody>
+		</table>
+	</div>
+</body>
+
+</html>

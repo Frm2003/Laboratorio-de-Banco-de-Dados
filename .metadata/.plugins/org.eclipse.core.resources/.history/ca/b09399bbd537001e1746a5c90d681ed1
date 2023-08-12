@@ -1,0 +1,45 @@
+@charset "ISO-8859-1";
+*{
+	margin: 0; 
+	padding: 0;
+	box-sizing: border-box;
+	border-spacing: 0;
+    font-family: 'Share Tech', sans-serif;
+	outline: none;
+}
+/*slides*/
+.sec1{
+    width: 100%;
+    overflow-x: hidden;
+}
+.navigation{
+    display: flex;
+    justify-content: space-evenly;
+    border-bottom: 1px solid;
+}
+.navigation .bar{
+	font-size: 35px;
+    padding: 0.5em;
+    cursor: pointer;
+}
+.slides{
+    width: 500%;
+    height: 100%;
+    display: flex;
+}
+.content{
+    width: 20%;
+    height: 100%;
+    padding: 0.5em;
+    transition: 0.5s;
+}
+#r1:checked ~ .s1{
+    margin-left: 0;
+}
+#r2:checked ~ .s1{
+    margin-left: -20%;
+}
+#r3:checked ~ .s1{
+    margin-left: -40%;
+}
+/*conteudo slides*/

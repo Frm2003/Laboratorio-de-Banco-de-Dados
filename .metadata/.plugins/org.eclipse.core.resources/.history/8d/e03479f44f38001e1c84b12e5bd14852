@@ -1,0 +1,9 @@
+package persistence;
+
+import java.sql.Connection;
+
+public class genericDao {
+	private Connection c;
+	
+	public Connection
+}

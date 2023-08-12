@@ -1,0 +1,10 @@
+function load() {
+    menu(document.querySelector("#cb"))
+    botoes(document.getElementById("btn2"))
+    select(document.getElementById("doc"))
+
+    x = document.querySelectorAll('[name="r"]')
+    for (let a = 0; a < x.length; a++) {
+        x[a].hidden = true
+    }
+}
