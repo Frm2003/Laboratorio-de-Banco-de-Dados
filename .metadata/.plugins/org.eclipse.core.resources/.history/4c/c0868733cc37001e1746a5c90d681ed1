@@ -1,7 +1,0 @@
-package model;
-
-public class professor {
-	private int cod;
-	private String nome;
-	private String data;
-}

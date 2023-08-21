@@ -1,3 +1,9 @@
 INDEX VERSION 1.134
+C:\Users\Felip\OneDrive\Documentos\FACULDADE\laboratoriBancoDeDados\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\587594548.index
+\labDadosAula01\src\main\java
+C:\Users\Felip\OneDrive\Documentos\FACULDADE\laboratoriBancoDeDados\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3817631760.index
+\teste\src\main\java
+C:\Users\Felip\OneDrive\Documentos\FACULDADE\laboratoriBancoDeDados\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2953162174.index
+\labDadosAula01-\src\main\java
 C:\Users\Felip\eclipse-workspace\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\778025359.index
 \ExemploHTML\src\main\java
