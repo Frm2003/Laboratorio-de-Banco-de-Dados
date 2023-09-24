@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="https://jakarta.ee/xml/ns/jakartaee" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd" id="WebApp_ID" version="6.0">
+  <display-name>labDadosAula02</display-name>
+  <welcome-file-list>
+    <welcome-file>secretariaAluno.jsp</welcome-file>
+  </welcome-file-list>
+  <servlet>
+    <description></description>
+    <display-name>CursoServlet</display-name>
+    <servlet-name>CursoServlet</servlet-name>
+    <servlet-class>controller.CursoServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CursoServlet</servlet-name>
+    <url-pattern>/curso</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AlunoServlet</display-name>
+    <servlet-name>AlunoServlet</servlet-name>
+    <servlet-class>controller.AlunoServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AlunoServlet</servlet-name>
+    <url-pattern>/aluno</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DisciplinaServlet</display-name>
+    <servlet-name>DisciplinaServlet</servlet-name>
+    <servlet-class>controller.DisciplinaServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DisciplinaServlet</servlet-name>
+    <url-pattern>/disciplina</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>MatriculaServlet</display-name>
+    <servlet-name>MatriculaServlet</servlet-name>
+    <servlet-class>controller.MatriculaServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MatriculaServlet</servlet-name>
+    <url-pattern>/matricula</url-pattern>
+  </servlet-mapping>
+</web-app>

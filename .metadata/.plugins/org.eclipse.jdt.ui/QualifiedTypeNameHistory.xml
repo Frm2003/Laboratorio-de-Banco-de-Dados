@@ -7,17 +7,12 @@
     <fullyQualifiedTypeName name="java.util.stream.Collectors"/>
     <fullyQualifiedTypeName name="persistence.ProfessorDAO"/>
     <fullyQualifiedTypeName name="java.sql.Date"/>
-    <fullyQualifiedTypeName name="java.util.List"/>
     <fullyQualifiedTypeName name="lombok.Data"/>
     <fullyQualifiedTypeName name="model.Onibus"/>
     <fullyQualifiedTypeName name="persistence.MotoristaDao"/>
     <fullyQualifiedTypeName name="persistence.OnibusDao"/>
-    <fullyQualifiedTypeName name="java.lang.Integer"/>
-    <fullyQualifiedTypeName name="java.sql.PreparedStatement"/>
     <fullyQualifiedTypeName name="lombok.Getter"/>
     <fullyQualifiedTypeName name="lombok.Setter"/>
-    <fullyQualifiedTypeName name="lombok.ToString"/>
-    <fullyQualifiedTypeName name="jakarta.servlet.annotation.WebServlet"/>
     <fullyQualifiedTypeName name="view.main"/>
     <fullyQualifiedTypeName name="controller.ClienteControle"/>
     <fullyQualifiedTypeName name="java.util.Scanner"/>
@@ -26,4 +21,19 @@
     <fullyQualifiedTypeName name="java.sql.CallableStatement"/>
     <fullyQualifiedTypeName name="java.sql.Types"/>
     <fullyQualifiedTypeName name="controller.ClienteServlet"/>
+    <fullyQualifiedTypeName name="lombok.ToString"/>
+    <fullyQualifiedTypeName name="java.sql.PreparedStatement"/>
+    <fullyQualifiedTypeName name="jakarta.servlet.http.HttpServletRequest"/>
+    <fullyQualifiedTypeName name="model.Disciplina"/>
+    <fullyQualifiedTypeName name="persistence.InterfaceDao"/>
+    <fullyQualifiedTypeName name="model.CursoDisciplina"/>
+    <fullyQualifiedTypeName name="java.lang.Integer"/>
+    <fullyQualifiedTypeName name="model.Aluno"/>
+    <fullyQualifiedTypeName name="persistence.AlunoDao"/>
+    <fullyQualifiedTypeName name="jakarta.servlet.annotation.WebServlet"/>
+    <fullyQualifiedTypeName name="model.Curso"/>
+    <fullyQualifiedTypeName name="persistence.DisciplinaDao"/>
+    <fullyQualifiedTypeName name="java.sql.Connection"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="persistence.MatriculaDao"/>
 </qualifiedTypeNameHistroy>

@@ -36,6 +36,7 @@ INDEX VERSION 1.134+C:\Users\Felip\OneDrive\Documentos\FACULDADE\laboratoriBanco
 3100923585.index
 1689796285.index
 4289620460.index
+1679220980.index
 3408907758.index
 1755468061.index
 516076781.index
@@ -50,6 +51,7 @@ INDEX VERSION 1.134+C:\Users\Felip\OneDrive\Documentos\FACULDADE\laboratoriBanco
 938394732.index
 2343017555.index
 1409468083.index
+2090992424.index
 751776921.index
 756219634.index
 1121028123.index
