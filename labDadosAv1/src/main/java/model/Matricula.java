@@ -10,4 +10,8 @@ import lombok.ToString;
 public class Matricula {
 	private Aluno aluno;
 	private Disciplina disciplina;
+	private int ano;
+	private int semestre;
+	private String situacao;
+	private boolean aprovado;
 }

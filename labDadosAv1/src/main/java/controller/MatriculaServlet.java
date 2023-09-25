@@ -22,7 +22,6 @@ public class MatriculaServlet extends HttpServlet {
 
 	private List<Aluno> alunos = new ArrayList<>();
 	private List<Disciplina> disciDispo = new ArrayList<>();
-	private List<Matricula> matriculas = new ArrayList<>();
 	
 	private String ra;
 		
@@ -52,6 +51,13 @@ public class MatriculaServlet extends HttpServlet {
 				inserir(this.ra, Integer.parseInt(cod));
 				disciDispo.removeAll(disciDispo);
 				break;
+			case "Listar":
+				for (Matricula m : listar(ra)) {
+					System.out.println(m.toString());
+				}
+				request.setAttribute("matriculas", listar(ra));
+				disciDispo.removeAll(disciDispo);
+				break;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -79,7 +85,6 @@ public class MatriculaServlet extends HttpServlet {
 		}
 		
 		mdao.iudCrud("i", m);
-		matriculas.add(m);
 	}
 
 	public List<Disciplina> buscar(String ra) throws ClassNotFoundException, SQLException {
@@ -91,5 +96,17 @@ public class MatriculaServlet extends HttpServlet {
 		}
 		return null;
 	}
+	
+	private List<Matricula> listar(String ra) throws ClassNotFoundException, SQLException {
+		for (Aluno a : alunos) {
+			if (a.getRa().equals(ra)) {
+				MatriculaDao mdao = new MatriculaDao();
+				return mdao.buscar(a);
+			}
+		}
+		
+		return null;
+	}
+
 
 }

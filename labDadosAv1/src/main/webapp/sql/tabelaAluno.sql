@@ -45,11 +45,20 @@ create table Matricula(
 	primary key (ra, codDisci, ano, semestre)
 )
 
-select d.cod as dcod, d.nome as nomed, d.qtdHoraSemanais as qtdAulas, d.semestre as dsem, d.horario as horario,
-		c.cod as codc, c.nome as nomec, c.cargaHoraria as cargaHoraria, c.sigla as sigla, c.turno as turno, c.enade as enade 
-from Disciplina d inner join CursoDisciplina cd on d.cod = cd.codDisci inner join Curso c on c.cod = cd.codCurso
-	left join Matricula m on d.cod = m.codDisci and m.ra = '202329535'
-where m.ra is null
+select a.ra as Ra, a.cpf as cpf, a.nome as nome, a.nomeSocial as nomeS, a.dataDeNasc as dataNasc, a.emailPessoal as emailP, a.emailCorporativo as emailC,
+		a.dataConc2grau as dataConc2grau, a.instConc2grau as inst, a.ptVestibular as ptVest, a.posVestibular as posVest, a.anoIngresso as anoi, a.semetreDeIngresso as semi,
+		a.anoLimite as al, a.semetreLimite as seml,
+		--
+		c.cod as codc, c.nome as nomec, c.cargaHoraria as cargaHoraria, c.sigla as sigla, c.turno as turno, c.enade as enade,
+		--
+		d.cod as cod, d.horario as horario, d.nome as nomee, d.qtdHoraSemanais as qtdHoraSemanais, d.semestre as semestre,
+		--
+		m.ano as ano, m.aprovado as aprovado, m.semestre as semestre, m.situacao as situacao
+from Aluno a inner join Matricula m on a.ra = m.ra 
+		inner join Disciplina d on m.codDisci = d.cod
+		inner join CursoDisciplina cd on d.cod = cd.codDisci
+		inner join Curso c on c.cod = cd.codCurso 
+		where a.ra = '202329535'
 
 select * from Aluno
 select * from alunoCurso

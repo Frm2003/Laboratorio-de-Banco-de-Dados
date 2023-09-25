@@ -24,7 +24,6 @@
     <fullyQualifiedTypeName name="lombok.ToString"/>
     <fullyQualifiedTypeName name="java.sql.PreparedStatement"/>
     <fullyQualifiedTypeName name="jakarta.servlet.http.HttpServletRequest"/>
-    <fullyQualifiedTypeName name="model.Disciplina"/>
     <fullyQualifiedTypeName name="persistence.InterfaceDao"/>
     <fullyQualifiedTypeName name="model.CursoDisciplina"/>
     <fullyQualifiedTypeName name="java.lang.Integer"/>
@@ -36,4 +35,6 @@
     <fullyQualifiedTypeName name="java.sql.Connection"/>
     <fullyQualifiedTypeName name="java.util.List"/>
     <fullyQualifiedTypeName name="persistence.MatriculaDao"/>
+    <fullyQualifiedTypeName name="java.lang.String"/>
+    <fullyQualifiedTypeName name="model.Disciplina"/>
 </qualifiedTypeNameHistroy>
