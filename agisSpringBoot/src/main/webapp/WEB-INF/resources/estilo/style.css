@@ -1,0 +1,103 @@
+@charset "ISO-8859-1";
+*{
+	margin: 0; 
+	padding: 0;
+	box-sizing: border-box;
+	border-spacing: 0;
+    font-family: 'Share Tech', sans-serif;
+	outline: none;
+}
+/* ESPECIFICOS */
+form{
+	padding: 4.5em;
+}
+.sec1{
+	padding: 0.5em;
+}
+.tabelaLinha{
+	overflow: hidden;
+}
+.tabelaLinha #col, .tabelaLinha .colTitulo {
+	float: left;
+	text-align: center;
+}
+.tabelaLinha #col2, .tabelaLinha .colTitulo2 {
+	float: left;
+	text-align: center;
+	width: 25%;
+}
+.tabelaLinha #col3, .tabelaLinha .colTitulo3 {
+	float: left;
+	text-align: center;
+	width: 20%;
+}
+/* ESTILOS PRONTOS */
+.w50p{
+	width: 50%;
+}
+.w100p{
+	width: 100%;
+}
+.alin-se{
+	align-items: center;
+	display: flex;
+	justify-content: space-evenly;
+}
+.alin-b{
+	align-items: center;
+	display: flex;
+	justify-content: space-around;
+}
+.labelTitulo{
+	font-size: 35px;
+}
+.btSimples{
+	cursor: pointer;
+	font-size: 40px;
+	padding: 0.5em;
+	margin: 0em 0.5em;
+	width: 33.3%;
+}
+.caixaDeTexto{
+	display: block;
+	font-size: 35px;
+	padding: 1.5em 2.5em;
+	border: 2px solid black;
+	width: 100%;
+}
+.caixaDeTextoSemNada{
+	display: block;
+	font-size: 22px;
+	border: none;
+}
+.px100{
+	width: 100px;
+}
+.px300{
+	width: 490px;
+}
+.px600{
+	width: 600px;
+}
+.p05{
+	padding: 0.5em;
+}
+.m15v{
+	margin: 1.5em 0em;
+}
+@media screen and (min-width: 1280px){
+	/* ESPECIFICOS */
+	form{
+		padding: 0.75em;
+	}
+	/* ESTILOS PRONTOS */
+	.labelTitulo{
+		font-size: 17px;
+	}
+	.btSimples{
+		font-size: 19px;
+	}
+	.caixaDeTexto{
+		font-size: 17px;
+	}
+}

@@ -21,7 +21,7 @@ public class AlunoDao implements InterfaceDao<Aluno>{
 	}
 	
 	@Override
-	public void iudCrud(String acao, Aluno t) throws ClassNotFoundException, SQLException {
+	public boolean iudCrud(String acao, Aluno t) throws ClassNotFoundException, SQLException {
 		String sql = "{CALL iudAluno (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) }";
 		CallableStatement cs = c.prepareCall(sql);
 		
@@ -38,22 +38,20 @@ public class AlunoDao implements InterfaceDao<Aluno>{
 		cs.setInt(11, t.getPtVestibular());
 		cs.setInt(12, t.getPosVestibular());
 		cs.setInt(13, t.getCurso().getCod());
-		cs.registerOutParameter(14, Types.VARCHAR);
-		
+		cs.registerOutParameter(14, Types.BIT);
+	
 		cs.execute();
+		boolean valido = cs.getBoolean(14);
 		cs.close();
 		
 		c.close();
+		
+		return valido;
 	}
 
 	@Override
 	public Aluno buscar(Aluno t) throws ClassNotFoundException, SQLException {
-		String sql = "select a.ra as Ra, a.cpf as cpf, a.nome as nome, a.nomeSocial as nomeS, a.dataDeNasc as dataNasc, a.emailPessoal as emailP, a.emailCorporativo as emailC, "
-				+ "		a.dataConc2grau as dataConc2grau, a.instConc2grau as inst, a.ptVestibular as ptVest, a.posVestibular as posVest, a.anoIngresso as anoi, a.semetreDeIngresso as semi,"
-				+ "		a.anoLimite as al, a.semetreLimite as seml,"
-				+ "		c.cod as codc, c.nome as nomec, c.cargaHoraria as cargaHoraria, c.sigla as sigla, c.turno as turno, c.enade as enade "
-				+ "from Aluno a inner join alunoCurso ac on a.ra = ac.ra "
-				+ "			inner join Curso c on c.cod = ac.codCurso where a.ra = ?";
+		String sql = "select * from selectAluno where Ra = ?";
 
 		PreparedStatement ps = c.prepareStatement(sql);
 		ps.setString(1, t.getRa());
@@ -61,7 +59,7 @@ public class AlunoDao implements InterfaceDao<Aluno>{
 		ResultSet rs = ps.executeQuery();
 
 		if (rs.next()) {
-			//t.setRa(rs.getString("ra"));
+			t.setRa(rs.getString("Ra"));
 			t.setCpf(rs.getString("cpf"));
 			t.setNome(rs.getString("nome"));
 			t.setNomeSocial(rs.getString("nomeS"));
@@ -101,12 +99,7 @@ public class AlunoDao implements InterfaceDao<Aluno>{
 	public List<Aluno> listar() throws ClassNotFoundException, SQLException {
 		List<Aluno> alunos = new ArrayList<>();
 		
-		String sql = "select a.ra as Ra, a.cpf as cpf, a.nome as nome, a.nomeSocial as nomeS, a.dataDeNasc as dataNasc, a.emailPessoal as emailP, a.emailCorporativo as emailC, "
-				+ "		a.dataConc2grau as dataConc2grau, a.instConc2grau as inst, a.ptVestibular as ptVest, a.posVestibular as posVest, a.anoIngresso as anoi, a.semetreDeIngresso as semi,"
-				+ "		a.anoLimite as al, a.semetreLimite as seml,"
-				+ "		c.cod as codc, c.nome as nomec, c.cargaHoraria as cargaHoraria, c.sigla as sigla, c.turno as turno, c.enade as enade "
-				+ "from Aluno a inner join alunoCurso ac on a.ra = ac.ra "
-				+ "			inner join Curso c on c.cod = ac.codCurso";
+		String sql = "select * from selectAluno";
 		
 		PreparedStatement ps = c.prepareStatement(sql);
 		

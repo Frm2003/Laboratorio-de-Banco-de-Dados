@@ -21,7 +21,7 @@ public class CursoDao implements InterfaceDao<Curso> {
 	}
 	
 	@Override
-	public void iudCrud(String acao, Curso t) throws ClassNotFoundException, SQLException {
+	public boolean iudCrud(String acao, Curso t) throws ClassNotFoundException, SQLException {
 		String sql = "{CALL iudCurso (?, ?, ?, ?, ?, ?, ?, ?) }";
 		CallableStatement cs = c.prepareCall(sql);
 		
@@ -32,12 +32,15 @@ public class CursoDao implements InterfaceDao<Curso> {
 		cs.setString(5, t.getSigla());
 		cs.setFloat(6, t.getEnade());
 		cs.setString(7, t.getTurno());
-		cs.registerOutParameter(8, Types.VARCHAR);
+		cs.registerOutParameter(8, Types.BIT);
 		
 		cs.execute();
-
+		boolean valido = cs.getBoolean(8);
 		cs.close();
+
 		c.close();
+		
+		return valido;
 	}
 	
 	@Override

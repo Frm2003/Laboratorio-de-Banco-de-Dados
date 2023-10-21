@@ -46,27 +46,22 @@
 								<option value="14:50 a 18:20">14:50 a 18:20</option>
 								<option value="14:50 a 16:30">14:50 a 16:30</option>
 								<option value="16:30 a 18:20">16:30 a 18:20</option>
-							</select> 
-						</div>
-						<div class="alin-se">
-							<input class="btSimples" type="submit" name="botao" value="Inserir">
-							<input class="btSimples" type="submit" name="botao" value="Atualizar">
-							<input class="btSimples" type="submit" name="botao" value="Deletar">
-						</div>
-						
-						<div class="m15v">
-							<p>Vincular disciplina a curso</p>
+							</select>
 							<div class="alin-se">
-								<select name="curso" class="caixaDeTexto m15v">
+								<select name="curso" class="caixaDeTexto">
 									<option>Selecione o curso</option>
 									<c:forEach var="c" items="${cursos }">
 										<option value="${c.cod }">
 											<c:out value="${c.nome }" />
 										</option>
 									</c:forEach>
-									<input class="btSimples" type="submit" name="botao" value="Vincular">
 								</select> 
 							</div>
+						</div>
+						<div class="alin-se m15v">
+							<input class="btSimples" type="submit" name="botao" value="Inserir">
+							<input class="btSimples" type="submit" name="botao" value="Atualizar">
+							<input class="btSimples" type="submit" name="botao" value="Deletar">
 						</div>
 					</div>
 				</form>
@@ -79,6 +74,8 @@
 							<p class="colTitulo" id="col">Nome</p>
 							<p class="colTitulo" id="col">Qtd. aula</p>
 							<p class="colTitulo" id="col">Horário</p>
+							<p class="colTitulo" id="col">Curso</p>
+							
 						</div>
 						<c:forEach var="d" items="${disciplinas }">
 							<div class="tabelaLinha p05">
@@ -86,6 +83,7 @@
 								<p id="col"><c:out value="${d.nome }" /></p>
 								<p id="col"><c:out value="${d.qtdHorasSemanais }" /></p>
 								<p id="col"><c:out value="${d.horario }" /></p>
+								<p id="col"><c:out value="${d.curso.sigla }" /></p>
 							</div>
 						</c:forEach>
 					</div>

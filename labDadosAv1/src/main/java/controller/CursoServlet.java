@@ -16,7 +16,6 @@ import lombok.Getter;
 import model.Curso;
 import persistence.CursoDao;
 
-@Getter
 public class CursoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private List<Curso> cursos = new ArrayList<>();
@@ -82,8 +81,11 @@ public class CursoServlet extends HttpServlet {
 		c.setEnade(enade);
 		c.setTurno(turno);
 		
-		cdao.iudCrud("i", c);
-		cursos.add(c);
+		boolean valido = cdao.iudCrud("i", c);
+		
+		if (valido) {
+			cursos.add(c);	
+		}		
 	}
 	
 	public Curso buscar(int cod) throws ClassNotFoundException, SQLException {
@@ -100,12 +102,14 @@ public class CursoServlet extends HttpServlet {
 		for (Curso c : cursos) {
 			if (c.getCod() == cod) {
 				CursoDao cdao = new CursoDao();
-				c.setNome(nome);
-				c.setCargaHoraria(cargaHoraria);
-				c.setSigla(sigla);
-				c.setEnade(enade);
-				c.setTurno(turno);
-				cdao.iudCrud("u", c);
+				boolean valido = cdao.iudCrud("u", c);
+				if (valido) {									
+					c.setNome(nome);
+					c.setCargaHoraria(cargaHoraria);
+					c.setSigla(sigla);
+					c.setEnade(enade);
+					c.setTurno(turno);
+				}
 				break;
 			} 
 		}
@@ -115,8 +119,10 @@ public class CursoServlet extends HttpServlet {
 		for (Curso c : cursos) {
 			if (c.getCod() == cod) {
 				CursoDao cdao = new CursoDao();
-				cdao.iudCrud("d", c);
-				cursos.remove(c);
+				boolean valido = cdao.iudCrud("d", c);
+				if (valido) {
+					cursos.remove(c);					
+				}
 				break;
 			} 
 		}

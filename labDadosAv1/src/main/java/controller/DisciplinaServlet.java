@@ -12,21 +12,24 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.Curso;
 import model.Disciplina;
+import persistence.CursoDao;
 import persistence.DisciplinaDao;
 
 public class DisciplinaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private List<Disciplina> disciplinas = new ArrayList<>();
 	
-	private CursoServlet cs = new CursoServlet();
+	private List<Disciplina> disciplinas = new ArrayList<>();
+	private List<Curso> cursos = new ArrayList<>();
        
     public DisciplinaServlet() throws ClassNotFoundException, SQLException {
     	DisciplinaDao ddao = new DisciplinaDao();
     	disciplinas.addAll(ddao.listar());
+    	CursoDao cdao = new CursoDao();
+    	cursos.addAll(cdao.listar());
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setAttribute("cursos", cs.getCursos());
+		request.setAttribute("cursos", cursos);
 		request.setAttribute("disciplinas", disciplinas);
 		RequestDispatcher rd = request.getRequestDispatcher("secretariaDisciplina.jsp");
 		rd.forward(request, response);
@@ -43,7 +46,7 @@ public class DisciplinaServlet extends HttpServlet {
 		try {
 			switch (request.getParameter("botao")) {
 			case "Inserir":
-				inserir(nome, Integer.parseInt(qtdHorasSemanais), Integer.parseInt(semestre), horario);
+				inserir(nome, Integer.parseInt(qtdHorasSemanais), Integer.parseInt(semestre), horario, Integer.parseInt(curso));
 				break;
 			case "Buscar":
 				if (!disciplinas.isEmpty()) {
@@ -52,7 +55,7 @@ public class DisciplinaServlet extends HttpServlet {
 				break;
 			case "Atualizar":
 				if (!disciplinas.isEmpty()) {					
-					atualizar(Integer.parseInt(cod), nome, Integer.parseInt(qtdHorasSemanais), Integer.parseInt(semestre), horario);
+					atualizar(Integer.parseInt(cod), nome, Integer.parseInt(qtdHorasSemanais), Integer.parseInt(semestre), horario, Integer.parseInt(curso));
 				}
 				break;
 			case "Deletar":
@@ -60,21 +63,18 @@ public class DisciplinaServlet extends HttpServlet {
 					deletar(Integer.parseInt(cod));
 				} 
 				break;
-			case "Vincular":
-				vincular(Integer.parseInt(cod), Integer.parseInt(curso));
-				break;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			request.setAttribute("cursos", cs.getCursos());
+			request.setAttribute("cursos", cursos);
 			request.setAttribute("disciplinas", disciplinas);
 			RequestDispatcher rd = request.getRequestDispatcher("secretariaDisciplina.jsp");
 			rd.forward(request, response);
 		}
 	}
 
-	private void inserir(String nome, int qtdHorasSemanais, int semestre, String horario) throws ClassNotFoundException, SQLException {
+	private void inserir(String nome, int qtdHorasSemanais, int semestre, String horario, int curso) throws ClassNotFoundException, SQLException {
 		Disciplina d = new Disciplina();
 		DisciplinaDao ddao = new DisciplinaDao();
 		
@@ -84,8 +84,17 @@ public class DisciplinaServlet extends HttpServlet {
 		d.setSemestre(semestre);
 		d.setHorario(horario);
 		
-		ddao.iudCrud("i", d);
-		disciplinas.add(d);
+		for (Curso c : cursos) {
+			if (c.getCod() == curso) {
+				d.setCurso(c);
+			}
+		}
+		
+		boolean valido = ddao.iudCrud("i", d);
+		
+		if (valido) {			
+			disciplinas.add(d);
+		}
 	}
 
 	private Disciplina buscar(int cod) throws ClassNotFoundException, SQLException {
@@ -98,7 +107,7 @@ public class DisciplinaServlet extends HttpServlet {
 		return null;
 	}
 
-	private void atualizar(int cod, String nome, int qtdHorasSemanais, int semestre, String horario) throws ClassNotFoundException, SQLException {
+	private void atualizar(int cod, String nome, int qtdHorasSemanais, int semestre, String horario, int curso) throws ClassNotFoundException, SQLException {
 		for (Disciplina d : disciplinas) {
 			if (d.getCod() == cod) {
 				DisciplinaDao ddao = new DisciplinaDao();
@@ -106,6 +115,12 @@ public class DisciplinaServlet extends HttpServlet {
 				d.setQtdHorasSemanais(qtdHorasSemanais);
 				d.setSemestre(semestre);
 				d.setHorario(horario);
+			
+				for (Curso c : cursos) {
+					if (c.getCod() == curso) {
+						d.setCurso(c);
+					}
+				}
 				ddao.iudCrud("u", d);
 				break;
 			}
@@ -116,26 +131,12 @@ public class DisciplinaServlet extends HttpServlet {
 		for (Disciplina d : disciplinas) {
 			if (d.getCod() == cod) {
 				DisciplinaDao ddao = new DisciplinaDao();
-				ddao.iudCrud("d", d);
-				disciplinas.remove(d);
-				break;
-			}
-		}
-	}
-	
-	private void vincular(int cod, int curso) throws ClassNotFoundException, SQLException {
-		for (Disciplina d : disciplinas) {
-			if (d.getCod() == cod) {
-				for (Curso c : cs.getCursos()) {
-					if (c.getCod() == curso) {
-						d.setCurso(cs.buscar(c.getCod()));
-						DisciplinaDao ddao = new DisciplinaDao();
-						ddao.vincular(d, c);
-						break;
-					}
+				boolean valido = ddao.iudCrud("d", d);
+				if (valido) {
+					disciplinas.remove(d);
 				}
 				break;
-			} 
+			}
 		}
 	}
 

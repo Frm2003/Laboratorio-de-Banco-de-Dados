@@ -14,22 +14,24 @@ import jakarta.servlet.http.HttpServletResponse;
 import model.Aluno;
 import model.Curso;
 import persistence.AlunoDao;
+import persistence.CursoDao;
 
 public class AlunoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private List<Aluno> alunos = new ArrayList<>();
-	
-	private CursoServlet cs = new CursoServlet();
+	private List<Curso> cursos = new ArrayList<>();
        
     public AlunoServlet() throws ClassNotFoundException, SQLException {
     	AlunoDao adao = new AlunoDao();
     	alunos.addAll(adao.listar());
+    	CursoDao cdao = new CursoDao();
+    	cursos.addAll(cdao.listar());
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setAttribute("alunos", alunos);
-		request.setAttribute("cursos", cs.getCursos());
+		request.setAttribute("cursos", cursos);
 		RequestDispatcher rd = request.getRequestDispatcher("secretariaAluno.jsp");
 		rd.forward(request, response);
 	}
@@ -53,30 +55,26 @@ public class AlunoServlet extends HttpServlet {
 				criar(nome, nomeSocial, emailPessoal, dataNasc, dataConc2grau, isntConc2grau, cpf, Integer.parseInt(ptVestibular), Integer.parseInt(posVestibular), Integer.parseInt(curso));
 				break;
 			case "Buscar":
-				request.setAttribute("aluno", buscar(ra));
+				if (!alunos.isEmpty()) {
+					request.setAttribute("aluno", buscar(ra));					
+				}
 				break;
 			case "Atualizar":
-				atualizar(ra, nome, nomeSocial, emailPessoal, dataNasc, dataConc2grau, isntConc2grau, cpf, Integer.parseInt(ptVestibular), Integer.parseInt(posVestibular), Integer.parseInt(curso));
+				if (!alunos.isEmpty()) {
+					atualizar(ra, nome, nomeSocial, emailPessoal, dataNasc, dataConc2grau, isntConc2grau, cpf, Integer.parseInt(ptVestibular), Integer.parseInt(posVestibular), Integer.parseInt(curso));					
+				}
 				break;
 			case "Deletar":
-				deletar(ra);
+				if (!alunos.isEmpty()) {					
+					deletar(ra);
+				}
 				break;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			alunos.removeAll(alunos);
-			
-			AlunoDao adao;
-			try {
-				adao = new AlunoDao();
-				alunos.addAll(adao.listar());
-				request.setAttribute("alunos", alunos);
-			} catch (ClassNotFoundException | SQLException e) {
-				e.printStackTrace();
-			}
-						
-			request.setAttribute("cursos", cs.getCursos());
+			request.setAttribute("alunos", alunos);			
+			request.setAttribute("cursos", cursos);
 			RequestDispatcher rd = request.getRequestDispatcher("secretariaAluno.jsp");
 			rd.forward(request, response);
 		}
@@ -86,7 +84,7 @@ public class AlunoServlet extends HttpServlet {
 		Aluno a = new Aluno();
 		AlunoDao adao = new AlunoDao();
 		
-		a.setRa(AlunoDao.geraRa());
+		a.setRa(adao.geraRa());
 		a.setCpf(cpf);
 		a.setNome(nome);
 		a.setNomeSocial(nomeSocial);
@@ -98,14 +96,17 @@ public class AlunoServlet extends HttpServlet {
 		a.setPtVestibular(ptVestibular);
 		a.setPosVestibular(posVestibular);
 		
-		for (Curso c : cs.getCursos()) {
+		for (Curso c : cursos) {
 			if (c.getCod() == curso) {
 				a.setCurso(c);
 			}
 		}
 		
-		adao.iudCrud("i", a);
-		alunos.add(a);
+		boolean valido = adao.iudCrud("i", a);
+		
+		if (valido) {
+			alunos.add(a);			
+		}
 	}
 
 	private Aluno buscar(String ra) throws ClassNotFoundException, SQLException {
@@ -122,25 +123,26 @@ public class AlunoServlet extends HttpServlet {
 		for (Aluno a : alunos) {
 			if (a.getRa().equals(ra)) {
 				AlunoDao adao = new AlunoDao();
-				
-				a.setRa(AlunoDao.geraRa());
-				a.setCpf(cpf);
-				a.setNome(nome);
-				a.setNomeSocial(nomeSocial);
-				a.setEmailPessoal(emailPessoal);
-				a.setEmailCorporativo(geraEmailCorporativo(nome));
-				a.setDataNasc(dataNasc);
-				a.setDataConc2grau(dataConc2grau);
-				a.setIsntConc2grau(isntConc2grau);
-				a.setPtVestibular(ptVestibular);
-				a.setPosVestibular(posVestibular);
-				
-				for (Curso c : cs.getCursos()) {
-					if (c.getCod() == curso) {
-						a.setCurso(c);
+				boolean valido = adao.iudCrud("u", a);
+				if (valido) { 
+					a.setRa(AlunoDao.geraRa());
+					a.setCpf(cpf);
+					a.setNome(nome);
+					a.setNomeSocial(nomeSocial);
+					a.setEmailPessoal(emailPessoal);
+					a.setEmailCorporativo(geraEmailCorporativo(nome));
+					a.setDataNasc(dataNasc);
+					a.setDataConc2grau(dataConc2grau);
+					a.setIsntConc2grau(isntConc2grau);
+					a.setPtVestibular(ptVestibular);
+					a.setPosVestibular(posVestibular);
+					
+					for (Curso c : cursos) {
+						if (c.getCod() == curso) {
+							a.setCurso(c);
+						}
 					}
 				}
-				adao.iudCrud("u", a);
 				break;
 			}		
 		}
@@ -151,8 +153,10 @@ public class AlunoServlet extends HttpServlet {
 		for (Aluno a : alunos) {
 			if (a.getRa().equals(ra)) {
 				AlunoDao adao = new AlunoDao();
-				adao.iudCrud("d", a);
-				alunos.remove(a);
+				boolean valido = adao.iudCrud("u", a);
+				if (valido) { 
+					alunos.remove(a);				
+				}
 				break;
 			}		
 		}

@@ -8,7 +8,11 @@ import lombok.ToString;
 @Setter
 @ToString
 
-public class Aluno extends Usuario {
+public class Aluno {
+	private String cpf;
+	private String nome;
+	private String dataNasc;
+	private String emailCorporativo;
 	private String ra;
 	private String nomeSocial;
 	private String emailPessoal;
