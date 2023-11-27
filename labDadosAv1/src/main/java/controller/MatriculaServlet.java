@@ -101,7 +101,7 @@ public class MatriculaServlet extends HttpServlet {
 		for (Aluno a : alunos) {
 			if (a.getRa().equals(ra)) {
 				MatriculaDao mdao = new MatriculaDao();
-				return mdao.buscar(a);
+				return mdao.buscarMatriculas(a);
 			}
 		}
 		
