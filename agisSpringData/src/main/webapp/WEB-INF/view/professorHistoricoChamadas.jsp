@@ -49,6 +49,7 @@
 				<p class="colTitulo" id="col">Tipo Av.</p>
 				<p class="colTitulo" id="col">Nota Final</p>
 				<p class="colTitulo" id="col">Total faltas</p>
+				<p class="colTitulo" id="col">Porcentagem</p>
 				<p class="colTitulo" id="col">Situacão</p>
 			</div>
 			<c:forEach var="c" items="${historico }">
@@ -59,6 +60,7 @@
 					<p id="col"><c:out value="${c.tipoAvalicao }" /></p>
 					<p id="col"><c:out value="${c.notaFinal }" /></p>
 					<p id="col"><c:out value="${c.totalFaltas }" /></p>
+					<p id="col"><c:out value="${c.porcentagem }%" /></p>
 					<p id="col"><c:out value="${c.situacao }" /></p>
 				</div>
 			</c:forEach>

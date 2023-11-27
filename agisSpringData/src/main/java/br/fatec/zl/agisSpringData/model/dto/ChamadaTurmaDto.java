@@ -14,5 +14,6 @@ public class ChamadaTurmaDto {
 	private String tipoAvalicao;
 	private String notaFinal;
 	private int totalFaltas;
+	private float porcentagem;
 	private String situacao;
 }

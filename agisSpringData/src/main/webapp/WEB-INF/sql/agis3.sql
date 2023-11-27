@@ -414,6 +414,7 @@ returns @table table (
     tipoAvalicao VARCHAR(30),
     notaFinal VARCHAR(3),
     totalFaltas INT,
+	porcentagem float,
     situacao VARCHAR(50)
 ) as 
 begin
@@ -423,6 +424,7 @@ begin
             @tipoAvaliacaoCursor VARCHAR(30),
             @notaFinalCursor VARCHAR(3),
             @totalFaltasCursor INT,
+			@porcentagem float,
             @situacaoCursor VARCHAR(50);
 
     -- Declaração do cursor
@@ -440,6 +442,7 @@ begin
                 ELSE cast(((av.nota1 * 0.8) + (av.nota2 * 0.2)) as varchar(3)) 
             END,
             sum(c.qtdFalta),
+			cast(sum(c.qtdFalta) as float) / cast(COUNT(c.qtdFalta) * d.qtdAulas as float) * 100,
             CASE WHEN ((COUNT(c.qtdFalta) * d.qtdAulas) * 0.75) + SUM(c.qtdFalta) > (COUNT(c.qtdFalta) * d.qtdAulas) THEN 
                 'Reprovado por faltas'
             ELSE 
@@ -451,24 +454,25 @@ begin
             inner join avaliacoes av on m.cod = av.codMateria
             inner join matriculas mm on m.cod = mm.codMateria
             inner join chamadas c on m.cod = c.codMateria
-        where m.cod = @codMateria
-        group by m.cod, d.nome, p.nome, m.tipoAvaliacao, mm.situacao, av.nota1, av.nota2, av.nota3, d.qtdAulas;
+        where m.cod = 1
+        group by m.cod, d.nome, p.nome, m.tipoAvaliacao, mm.situacao, av.nota1, av.nota2, av.nota3, d.qtdAulas
 
+		
     -- Abertura do cursor
     open cursorHistorico;
 
     -- Leitura do primeiro registro
-    fetch next from cursorHistorico into @codMateriaCursor, @nomeDisciplinaCursor, @professorCursor, @tipoAvaliacaoCursor, @notaFinalCursor, @totalFaltasCursor, @situacaoCursor;
+    fetch next from cursorHistorico into @codMateriaCursor, @nomeDisciplinaCursor, @professorCursor, @tipoAvaliacaoCursor, @notaFinalCursor, @totalFaltasCursor, @porcentagem, @situacaoCursor;
 
     -- Loop para processar os registros
     while @@FETCH_STATUS = 0
     begin
         -- Inserção na tabela de retorno
-        insert into @table(codMateria, nomeDisciplina, professor, tipoAvalicao, notaFinal, totalFaltas, situacao)
-        values (@codMateriaCursor, @nomeDisciplinaCursor, @professorCursor, @tipoAvaliacaoCursor, @notaFinalCursor, @totalFaltasCursor, @situacaoCursor);
+        insert into @table(codMateria, nomeDisciplina, professor, tipoAvalicao, notaFinal, totalFaltas, porcentagem, situacao)
+        values (@codMateriaCursor, @nomeDisciplinaCursor, @professorCursor, @tipoAvaliacaoCursor, @notaFinalCursor, @totalFaltasCursor, @porcentagem, @situacaoCursor);
 
         -- Leitura do próximo registro
-        fetch next from cursorHistorico into @codMateriaCursor, @nomeDisciplinaCursor, @professorCursor, @tipoAvaliacaoCursor, @notaFinalCursor, @totalFaltasCursor, @situacaoCursor;
+        fetch next from cursorHistorico into @codMateriaCursor, @nomeDisciplinaCursor, @professorCursor, @tipoAvaliacaoCursor, @notaFinalCursor, @totalFaltasCursor, @porcentagem, @situacaoCursor;
     end
 
     -- Fechamento do cursor
