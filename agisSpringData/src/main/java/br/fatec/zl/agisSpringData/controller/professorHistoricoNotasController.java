@@ -59,6 +59,9 @@ public class professorHistoricoNotasController {
 		case "Buscar":
 			model.addAttribute("historico", listaHistoricoNotasMateria(Long.parseLong(cod)));
 			break;
+		case "Gerar Relatorio":
+			gerarRelatorio(cod);
+			break;
 		}
 		
 		model.addAttribute("materias", materias);
@@ -77,13 +80,12 @@ public class professorHistoricoNotasController {
 	
 	
 	@SuppressWarnings({"rawtypes", "unchecked"})
-	private ResponseEntity gerarRelatorio(@RequestParam Map<String, String> param) {
+	private ResponseEntity gerarRelatorio(String cod) {
 		GenericDao gdao = new GenericDao();
 		String erro = "";
 		
-		System.out.println(param.get("codMateria"));
 		Map<String, Object> paramRelatorio = new HashMap<>();
-        paramRelatorio.put("codMateria", param.get("codMateria"));
+        paramRelatorio.put("codMateria", cod);
 		
 		byte[] bytes = null;
 		

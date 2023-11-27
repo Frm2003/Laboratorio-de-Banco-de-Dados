@@ -406,7 +406,7 @@ end
 
 select * from historicoTurma(1)
 
-create function historicoTurmaChamada(@codMateria as bigint)
+create alter function historicoTurmaChamada(@codMateria as bigint)
 returns @table table (
     codMateria INT,
     nomeDisciplina VARCHAR(100),
@@ -440,14 +440,14 @@ begin
                 WHEN m.tipoAvaliacao = 'tipo2' THEN cast(((av.nota1 * 0.35) + (av.nota2 * 0.35) + (av.nota3 * 0.3)) as varchar(3))
                 WHEN m.tipoAvaliacao = 'tipo3' THEN cast(((av.nota1 * 0.33) + (av.nota2 * 0.33) + (av.nota3 * 0.3)) as varchar(3))
                 ELSE cast(((av.nota1 * 0.8) + (av.nota2 * 0.2)) as varchar(3)) 
-            END,
-            sum(c.qtdFalta),
-			cast(sum(c.qtdFalta) as float) / cast(COUNT(c.qtdFalta) * d.qtdAulas as float) * 100,
+            END as mediaFinal,
+            sum(c.qtdFalta) as totalFalta,
+			cast(sum(c.qtdFalta) as float) / cast(COUNT(c.qtdFalta) * d.qtdAulas as float) * 100 as Porcentagem,
             CASE WHEN ((COUNT(c.qtdFalta) * d.qtdAulas) * 0.75) + SUM(c.qtdFalta) > (COUNT(c.qtdFalta) * d.qtdAulas) THEN 
                 'Reprovado por faltas'
             ELSE 
                 'Aprovado'
-            END
+            END as situacao
         from materias m
             inner join disciplinas d on m.codDisci = d.cod
             inner join professores p on m.codProf = p.cod
